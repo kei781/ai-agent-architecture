@@ -72,7 +72,7 @@
 | 벡터 저장소 | 경량 스토어로 시작 | Qdrant 등으로 승격 가능 | 데이터 규모/보안 요건에 따라 확장 |
 | 이미지 생성 | ComfyUI 계열 | 다른 노드형 생성 런타임 | 상시 실행 금지, on-demand 권장 |
 | 네트워크 메쉬 | Tailscale 계열 | WireGuard 계열 등 | 외부 공개 최소화, LAN 폴백 확보 |
-| 외부 장문 처리 | Gemini 2.5 Flash / Qwen 3.6 Plus | 다른 cloud LLM | 역할 기반 보조 슬롯 겸 폴백 경로 |
+| 외부 장문 처리 | Stable cloud model | 다른 cloud LLM | 역할 기반 보조 슬롯 겸 폴백 경로 |
 | 메시징/알림 | Hermes 내장 게이트웨이 | 별도 웹훅 구현 | 14개 플랫폼 기본 지원 |
 
 ---
@@ -84,12 +84,12 @@
 
 | 슬롯 | 역할 | 추천 규모/성격 | 현재 환경에서 무난한 예시 |
 |---|---|---|---|
-| `MODEL_FAST` | 분류, 파싱, 짧은 요약, 단순 라우팅 | 4B~9B급 instruct | **Qwen3.5-9B** (상시 로드 기본값) / Qwen3.5-4B (메모리 절약 시) |
-| `MODEL_ORCHESTRATOR` | 일반 추론, tool calling, 멀티스텝 작업 | 27B급 dense instruct | **Qwen3.5-27B** (tool calling 안정성·속도·메모리 효율 우선) |
-| `MODEL_DEEP` | 긴 문맥, 고난도 분석, 중요한 최종 검토 | 30B급 dense instruct | **Gemma-4-31B-it** (필요 시 로드. 생태계 안정화 전까지 Qwen3.5-27B로 겸용 가능) |
-| `MODEL_CODE_OPTIONAL` | 로컬 코드 보조 분석 | 코드 특화 모델 | Qwen3.5-27B 겸용 우선. 별도 필요 시 **DeepSeek-Coder-V3** |
-| `MODEL_EXTERNAL_TEXT` | 장문 처리, 대용량 문서, 로컬 우회/폴백 | stable cloud model | **Gemini 2.5 Flash** (기본) / **Qwen 3.6 Plus** (보조·폴백) |
-| `MODEL_IMAGE` | 이미지 생성/편집 | 워크플로우 기반 생성 런타임 | **Flux.1-dev** (기본) / SDXL (경량 대안) |
+| `MODEL_FAST` | 분류, 파싱, 짧은 요약, 단순 라우팅 | 4B~8B급 instruct | Qwen 계열 8B 전후 |
+| `MODEL_ORCHESTRATOR` | 일반 추론, tool calling, 멀티스텝 작업 | 20B~35B급 instruct 또는 MoE | Qwen 계열 20B~30B급 |
+| `MODEL_DEEP` | 긴 문맥, 고난도 분석, 중요한 최종 검토 | 70B급 instruct 또는 동급 | Llama 계열 70B 전후 |
+| `MODEL_CODE_OPTIONAL` | 로컬 코드 보조 분석 | 코드 특화 모델 | DeepSeek-Coder 계열 등 |
+| `MODEL_EXTERNAL_TEXT` | 장문 처리, 대용량 문서, 로컬 우회/폴백 | stable cloud model | Gemini Flash/Pro 계열 또는 동급 |
+| `MODEL_IMAGE` | 이미지 생성/편집 | 워크플로우 기반 생성 런타임 | Flux / SDXL 계열 |
 
 ### 4.1 라우팅 규칙
 
